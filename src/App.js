@@ -1,24 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
 
+import React from 'react';
+import {
+  BrowserRouter, Routes,
+  Route
+} from "react-router-dom";
+import Landing from "./landing/pages/Landing.jsx"
+import Billboards from "./billboards/Pages/Billboards.jsx"
+import Request from "./users/Pages/Request.jsx"
+import { UserContextProvider, userContext } from "./user.context"
+
+const config = {
+  headers: {
+    "Content-Type": "application/json"
+  },
+  withCredentials: true
+}
 function App() {
+  // useEffect(() => {
+  //   axios.post("http://localhost:8000/user/login",
+  //     {
+  //       "username": "oma222r",
+  //       "password": "aaa1"
+  //     }, config)
+  //     .then(response => { console.log(response) })
+  //     .catch(error => { console.log(error) })
+  // }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserContextProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Landing />}></Route>
+          <Route path="/requests" element={<Request />}></Route>
+          <Route path="/billboards" element={<Billboards />}></Route>
+        </Routes>
+
+      </BrowserRouter>
+    </UserContextProvider>
+
   );
 }
 

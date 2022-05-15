@@ -1,0 +1,16 @@
+.mapboxgl-map {
+  /* margin-top: 2em; */
+
+  border: 1px solid #01010180;
+  height: clamp(65vh, 91.5vh, 93.2vh) !important;
+  border-radius: 14px 0px 0px 14px;
+  box-shadow: -6px 5px 10px 1px #01010140;
+}
+
+#mapContainer-modal {
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0px 3px 8px 1px #01010140;
+  height: clamp(35vh, 38.5vh, 40.2vh) !important;
+  padding: 5px 1.3em 5px;
+}

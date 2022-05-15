@@ -1,0 +1,18 @@
+.billboard_background {
+  background: #c3c3c335;
+}
+
+
+
+.title {
+  color: #010101;
+  font-family: "open sans";
+  font-size: 1.8em;
+  font-weight: light;
+}
+
+@media (width < 700px) {
+  .mapboxgl-map {
+    max-height: 300px !important;
+  }
+}

@@ -1,0 +1,52 @@
+.my_button {
+  border-radius: 25px;
+
+  font-family: Montserrat;
+  font-size: 2em;
+  font-weight: bold;
+  border: none !important;
+  transition: all 300ms ease-in;
+}
+
+.landing_active {
+  box-shadow: 0px 0px 15px 5px #01010178;
+  background-color: #7634e7b9;
+  color: #fffeff;
+}
+
+.landing_active:hover {
+  box-shadow: none;
+  background-color: #7634e7cd;
+  color: #010101ed;
+}
+.billboard-button:hover {
+  font-size: 1em;
+  color: #010101;
+  box-shadow: 0px 3px 8px 1px #7634e7cd;
+  background-color: #fffeff;
+}
+
+.billboard-button {
+  box-shadow: 0px 3px 6px 2px #01010159;
+  font-size: 1em;
+  background-color: #7634e7cd;
+
+  color: #fffeff;
+}
+
+.submit {
+  background-color: green;
+  color: #fffeff;
+  font-size: 1em;
+  font-weight: light;
+}
+
+.change {
+  background-color: blue;
+  color: #fffeff;
+  font-size: 1em;
+  font-weight: light;
+}
+.wide {
+  width: 100%;
+}

@@ -1,0 +1,28 @@
+.modal-content {
+  border-radius: 20px !important;
+  width: 125%;
+  
+  animation: slideModal 550ms ease-out 0 1 forwards !important;
+  
+}
+
+.display-5 {
+  font-family: "open sans";
+  color: #fffeff;
+  font-size: 1.3em
+}
+@media (width <= 576px) {
+  .modal-content {
+    
+    width: clamp(200px , 100% , 100%)
+  }
+}
+
+@keyframes slideModal {
+  0% {
+    transform: translateY(-100px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
