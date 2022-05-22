@@ -6,20 +6,32 @@ const MyCard = (props) => {
   return (
     <Card className={`${props.className} my-rounded`}>
       <Card.Img
-        className="my-rounded card-image ml-auto mr-auto"
+        className="card-image ml-auto mr-auto"
         variant="top"
         src={billboard.imageLink}
       />
-      {!props.showInfo && <Card.Title className="mt-2 mb-n4 text-center me-auto ms-auto">Selected billboard info</Card.Title>}
-      <Card.Body className="justify-content-center text-center d-flex align-items-center row mt-n1">
-        <Row className=" card-text">
-          Aspect Ratio : {billboard.aspectRatio}
-          <br />
-          Rate : {billboard.rate}$ per hour
+      <Card.Body className="justify-content-center text-center align-items-center row mt-n1">
+        <Row>
+          <Col>
+            <h1 className=" card-text">
+              Aspect Ratio
+              <br />
+              {billboard.aspectRatio}
+            </h1>
+          </Col>
+          <Col>
+            <h1 className=" card-text">
+              Rate <br /> {billboard.rate}$ per hour
+            </h1>
+          </Col>
         </Row>
-        <Row className=" card-text">
-          street address : {billboard.address.street}st,{" "}
-          {billboard.address.city} city
+        <Row className="mt-2">
+          <Col>
+            <h1 className=" card-text">
+              {billboard.address.street}st, {billboard.address.city} city,{" "}
+              {billboard.address.country}
+            </h1>
+          </Col>
         </Row>
       </Card.Body>
     </Card>

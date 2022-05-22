@@ -8,6 +8,8 @@ const MyButton = (props) => {
       onClick={() => (props.clickHandler ? props.clickHandler() : null)}
       className={`my_button ${props.className}`}
       type={type}
+      disabled={props.disabled}
+      variant={props.variant}
     >
       {props.children}
     </Button>

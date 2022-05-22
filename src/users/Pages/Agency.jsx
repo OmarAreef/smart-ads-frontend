@@ -5,25 +5,25 @@ import axios from "axios";
 import { useUserContext } from "../../user.context";
 import MyCard from "../../billboards/components/MyBillboard";
 import "./request.css";
-import CampaignDescription from "../components/CampaignDescription";
+import BillboardDescription from "../components/BillboardDescription";
 const config = {
   headers: {
     "Content-Type": "application/json",
   },
   withCredentials: true,
 };
-const Request = () => {
-  const [userActiveCampaigns, setActiveCampaigns] = useState(null);
-  const [userNotActiveCampaigns, setNotActiveCampaigns] = useState(null);
+const Agency = () => {
+  const [userActiveBillboards, setActiveBillboards] = useState(null);
+  const [userNotActiveBillboards, setNotActiveBillboards] = useState(null);
   const userContext = useUserContext();
   useEffect(() => {
     console.log(userContext.role);
     axios
-      .post("http://localhost:8000/user/requests", {}, config)
+      .post("http://localhost:8000/agency/requests", {}, config)
       .then((response) => {
         console.log(response.data.nonActive, response.data.activeCampaigns);
-        setActiveCampaigns(response.data.activeCampaigns);
-        setNotActiveCampaigns(response.data.nonActive);
+        setActiveBillboards(response.data.activeBillboards);
+        setNotActiveBillboards(response.data.pendingBillboards);
       });
   }, []);
   return (
@@ -38,33 +38,32 @@ const Request = () => {
       </Row>
       <Row className=" px-2 mt-5 mx-5 h-100  justify-content-start text-center  align-items-center">
         <h1 className="display-4 text-start fs-3">
-          Your <span className="text-danger fw-bolder">Pending</span> Campaigns:
+          Your <span className="text-danger fw-bolder">Pending</span>{" "}
+          Billboards:
         </h1>
         <div>
           <Table bordered hover responsive="md">
             <thead>
               <tr>
                 <th>#</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Start time</th>
-                <th>End Time</th>
-                <th>Frequency (per hour)</th>
-                <th>Duration</th>
-                <th>Price</th>
-                <th>Number of Billboards</th>
-                <th>AD</th>
+                <th>Aspect ratio</th>
+                <th>Rate (per hour)</th>
+                <th>Street address</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>Real image</th>
+                <th>Location</th>
               </tr>
             </thead>
             <tbody>
-              {userNotActiveCampaigns &&
-                userNotActiveCampaigns.map((elem, index) => {
+              {userNotActiveBillboards &&
+                userNotActiveBillboards.map((elem, index) => {
                   return (
                     <tr>
                       <td>{index + 1}</td>
-                      <CampaignDescription
+                      <BillboardDescription
                         className="billboard-card ms-auto me-auto"
-                        campaign={elem}
+                        billboard={elem}
                         key={`nonactive-${index}`}
                       />
                     </tr>
@@ -76,35 +75,34 @@ const Request = () => {
       </Row>
       <Row className=" px-2 mt-5 mx-5 h-100  justify-content-start text-center">
         <h1 className="display-4 text-start fs-3">
-          Your <span className="text-success fw-bolder">Active</span> Campaigns:
+          Your <span className="text-success fw-bolder">Active</span>{" "}
+          Billboards:
         </h1>
         <div>
-          <Table bordered hover responsive="md">
+          <Table bordered hover responsive="md" size="sm">
             <thead>
               <tr>
                 <th>#</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Start time</th>
-                <th>End Time</th>
-                <th>Frequency (per hour)</th>
-                <th>Duration</th>
-                <th>Price</th>
-                <th>Number of Billboards</th>
-                <th>AD</th>
+                <th>Aspect ratio</th>
+                <th>Rate (per hour)</th>
+                <th>Street address</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>Real image</th>
+                <th>Location</th>
               </tr>
             </thead>
             <tbody>
-              {userActiveCampaigns &&
-                userActiveCampaigns.map((elem, index) => {
+              {userActiveBillboards &&
+                userActiveBillboards.map((elem, index) => {
                   return (
                     <tr>
                       <td>{index + 1}</td>
-                      <CampaignDescription
+                      <BillboardDescription
                         className="billboard-card ms-auto me-auto"
-                        campaign={elem}
+                        billboard={elem}
                         key={`active-${index}`}
-                      ></CampaignDescription>
+                      ></BillboardDescription>
                     </tr>
                   );
                 })}
@@ -116,4 +114,4 @@ const Request = () => {
   );
 };
 
-export default Request;
+export default Agency;

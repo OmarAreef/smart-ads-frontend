@@ -1,0 +1,38 @@
+.billboard-card {
+  padding: 0;
+  border: none;
+  box-shadow: 0px 4px 4px 1px #0202021d;
+  min-width: 100%;
+  min-height: 340px;
+  animation: moveImage 550ms cubic-bezier(0, 0, 0.53, 0.83) 0s 1 forwards;
+}
+
+.my-rounded {
+  border-radius: 10px;
+}
+.card-text {
+  font-weight: 300;
+  font-family: "open sans";
+  font-size: 70%;
+}
+.card-image {
+  /* min-height: 100% !important; */
+  /* min-width: 90px !important; */
+  max-width: 200px !important;
+  min-width: 120px !important;
+  object-fit: fill;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@keyframes moveImage {
+  0% {
+    transform: translateX(-300px);
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}

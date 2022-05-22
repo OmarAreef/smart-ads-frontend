@@ -5,9 +5,13 @@ import { SignupForm } from "../../forms/Forms";
 import Header from "../../shared/Header";
 import MyModal from "../../shared/MyModal";
 import LoadingSpinner from "../../shared/LoadingSpinner";
+import { useUserContext } from "../../user.context";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Landing.css";
 const Landing = () => {
+  const userContext = useUserContext();
+  const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const handleClose = () => setShow(false);
@@ -42,7 +46,9 @@ const Landing = () => {
             <Col md={6} xs={10} className="">
               <MyButton
                 className="landing_active wide"
-                clickHandler={handleShow}
+                clickHandler={() => {
+                  userContext.role ? navigate("/billboards") : handleShow();
+                }}
               >
                 Get Started
               </MyButton>
