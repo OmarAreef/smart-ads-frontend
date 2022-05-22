@@ -7,13 +7,14 @@ const ModalOverlay = (props) => {
       show={props.show}
       onHide={props.handleClose}
       dialogClassName={`justify-content-center ${props.className}`}
+      fullscreen={props.fullscreen}
     >
-      <Modal.Header closeButton className="bg-dark rounded-3 ">
+      <Modal.Header closeButton className="bg-dark rounded-3 w-100 ">
         <Modal.Title className="display-5 Modal-title ">
           {props.title}
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body>{props.children}</Modal.Body>
+      <Modal.Body className={`${props.className} justify-content-center`}>{props.children}</Modal.Body>
     </Modal>
   );
 };

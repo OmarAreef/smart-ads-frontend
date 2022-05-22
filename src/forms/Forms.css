@@ -1,6 +1,21 @@
 .mapform {
   font-family: "open sans";
-  color: #010101;
+  color: #020202;
   font-weight: 300;
   font-size: calc(40% + 1.2rem);
+}
+.form-image {
+  max-width: inherit;
+  max-height: 300px;
+}
+
+.label-header {
+  border-right: 2px solid #020202;
+  font-weight: 300;
+}
+.list-item {
+  font-family: "open sans";
+  color: #020202;
+  font-weight: 300;
+  font-size: calc(20% + 1rem);
 }

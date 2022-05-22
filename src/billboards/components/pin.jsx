@@ -5,41 +5,51 @@ const ICON = `M20.2,15.7L20.2,15.7c1.1-1.6,1.8-3.6,1.8-5.7c0-5.6-4.5-10-10-10S2,
   C20.1,15.8,20.2,15.8,20.2,15.7z`;
 
 const Pin = (props) => {
-  const preSize = props.size || 15;
+  const preSize = props.size || 13;
   const [size, setSize] = React.useState(preSize);
   const [pinStyle, setPinStyle] = React.useState({
     cursor: "pointer",
-    fill: "#7634e7f3",
+    fill: "#0442e2f3",
     stroke: "none",
   });
 
   const handlePinClick = () => {
-    if (size === 18) {
+    if (size === 13) {
       setPinStyle({
         cursor: "pointer",
         fill: "#FFFF00",
         stroke: "none",
       });
-      setSize(22);
+      setSize(18);
     } else {
       setPinStyle({
         cursor: "pointer",
-        fill: "#7634e7f3",
+        fill: "#0442e2f3",
         stroke: "none",
       });
-      setSize(15);
+      setSize(13);
     }
   };
   const myFunction = () => {
+    console.log("ss1");
     props.setSelectedBillboard(props.billboard);
+    props.setShowPopup(true);
+    console.log(props.billboard);
+    console.log(props.popup);
     if (props.clickHandler) {
+      console.log("ss");
       handlePinClick();
     } else return;
   };
 
   return (
     <svg height={size} viewBox="0 0 24 24" style={pinStyle}>
-      <path d={ICON} onClick={myFunction} />
+      <path
+        d={ICON}
+        onClick={() => {
+          myFunction();
+        }}
+      />
     </svg>
   );
 };

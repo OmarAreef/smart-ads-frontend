@@ -1,16 +1,39 @@
 .mapboxgl-map {
   /* margin-top: 2em; */
 
-  border: 1px solid #01010180;
-  height: clamp(65vh, 91.5vh, 93.2vh) !important;
-  border-radius: 14px 0px 0px 14px;
-  box-shadow: -6px 5px 10px 1px #01010140;
+  border-right: none !important;
+  height: clamp(65vh, 92.3vh, 93.2vh) !important;
+  border-radius: 8px 0px 0px 8px;
+  box-shadow: -4px 0px 4px 1px #0202021d;
+}
+.mapboxgl-popup-close-button {
+  padding: 0px !important;
+  margin-right: 4.5px;
+  border-radius: 10px;
+  margin-top: 9px;
+  transform: scale(2);
+  background-color: black !important;
+  color: white !important;
 }
 
+.mapboxgl-popup-content {
+  border-radius: 10px !important;
+  padding: 0 !important;
+  box-shadow: 0px 2px 4px 1px #0202021d !important;
+}
 #mapContainer-modal {
-  border-radius: 20px;
-  border: none;
-  box-shadow: 0px 3px 8px 1px #01010140;
-  height: clamp(35vh, 38.5vh, 40.2vh) !important;
-  padding: 5px 1.3em 5px;
+  border-radius: 10px;
+
+  box-shadow: 0px 3px 6px 1px #0202021d;
+  height: clamp(35vh, 45.5vh, 47.2vh) !important;
+  padding: 5px 5px 5px;
+}
+
+#mapContainer-table {
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0px 3px 6px 1px #0202021d;
+  width: clamp(100px, 240px, 250px) !important;
+  height: clamp(100px, 120px, 250px) !important;
 }
