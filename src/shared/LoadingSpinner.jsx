@@ -11,7 +11,7 @@ const LoadingSpinner = (props) => {
           <>
             <h1 className="display-2 fs-5 overlay-title text-center">
               {" "}
-              We are detecting the area of the text in the advertisement <br />
+              We are analyisng your Advertisment <br />
               This could take from a few seconds to 2-3 minutes depending on the
               Image.
             </h1>

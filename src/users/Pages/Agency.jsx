@@ -33,7 +33,7 @@ const Agency = () => {
         <h1 className="display-3 text-center fs-1">
           Here you can find your billboards and know their status whether active
           or pending. <br />
-          You will also find any active campaigns that you have made.
+          
         </h1>
       </Row>
       <Row className=" px-2 mt-5 mx-5 h-100  justify-content-start text-center  align-items-center">

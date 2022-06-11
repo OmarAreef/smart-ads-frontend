@@ -6,6 +6,7 @@ import { useUserContext } from "../../user.context";
 import MyCard from "../../billboards/components/MyBillboard";
 import "./request.css";
 import CampaignDescription from "../components/CampaignDescription";
+import LoadingSpinner from './../../shared/LoadingSpinner';
 const config = {
   headers: {
     "Content-Type": "application/json",
@@ -15,8 +16,10 @@ const config = {
 const Request = () => {
   const [userActiveCampaigns, setActiveCampaigns] = useState(null);
   const [userNotActiveCampaigns, setNotActiveCampaigns] = useState(null);
+  const [loading, setLoading] = useState(false);
   const userContext = useUserContext();
   useEffect(() => {
+    setLoading(true);
     console.log(userContext.role);
     axios
       .post("http://localhost:8000/user/requests", {}, config)
@@ -24,16 +27,21 @@ const Request = () => {
         console.log(response.data.nonActive, response.data.activeCampaigns);
         setActiveCampaigns(response.data.activeCampaigns);
         setNotActiveCampaigns(response.data.nonActive);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
       });
   }, []);
   return (
     <>
+      {loading && <LoadingSpinner asOverlay />}
       <Header className="billboard_navbar mb-0 py-2"></Header>
       <Row className=" px-2 mt-3 mx-0 h-100  justify-content-start text-center">
         <h1 className="display-3 text-center fs-1">
-          Here you can find your billboards and know their status whether active
+          Here you can find your campaigns and know their status whether active
           or pending. <br />
-          You will also find any active campaigns that you have made.
+          
         </h1>
       </Row>
       <Row className=" px-2 mt-5 mx-5 h-100  justify-content-start text-center  align-items-center">

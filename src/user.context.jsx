@@ -11,6 +11,7 @@ const config = {
 };
 const UserContextProvider = (props) => {
   const [role, setRole] = useState(null);
+  const [next, setNext] = useState(false);
   const [billboardImage, setBillboardImage] = useState(null);
   const [campaignImage, setCampaignImage] = useState(null);
   const [campaignData, setCampaignData] = useState({});
@@ -50,9 +51,9 @@ const UserContextProvider = (props) => {
     if (data.billboards || data.state) {
       console.log(data);
       getPayment(data);
-      return
+      return;
     }
-    setDisabled(true)
+    setDisabled(true);
   };
 
   const addPrice = (data) => {
@@ -64,6 +65,7 @@ const UserContextProvider = (props) => {
   const resetCampaign = () => {
     setPrice(0);
     setGlobalFormError(null);
+    setGlobalFormSuccess(null);
     setCampaignData({});
     setCampaignImage(null);
   };
@@ -111,6 +113,8 @@ const UserContextProvider = (props) => {
     }
     setLoading(true);
     const formData = new FormData();
+    formData.append("city", campaignData.city);
+    formData.append("state", campaignData.state);
     formData.append("billboards", campaignData.billboards);
     formData.append("startTime", campaignData.startTime);
     formData.append("endTime", campaignData.endTime);
@@ -124,7 +128,7 @@ const UserContextProvider = (props) => {
       .post("http://localhost:8000/display/", formData, config)
       .then((response) => {
         setGlobalFormSuccess(response.data.message);
-        setGlobalFormError(null)
+        setGlobalFormError(null);
         setDisabled(true);
         setLoading(false);
       })
@@ -154,8 +158,9 @@ const UserContextProvider = (props) => {
         createCampaign,
         resetCampaign,
         disabled,
-        globalFormSuccess
-
+        globalFormSuccess,
+        next,
+        setNext,
       }}
     >
       {props.children}

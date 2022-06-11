@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../shared/Header";
+
 import { Row, Table, Alert } from "react-bootstrap";
 import axios from "axios";
 import { useUserContext } from "../../user.context";
 import BillboardDescription from "../components/BillboardDescription";
 import CampaignDescription from "../components/CampaignDescription";
+import LoadingSpinner from './../../shared/LoadingSpinner';
 const config = {
   headers: {
     "Content-Type": "application/json",
@@ -16,7 +18,7 @@ const Admin = () => {
   const [error, setError] = useState(null);
   const [userBillboards, setBillboards] = useState(null);
   const [userCampaigns, setCampaigns] = useState(null);
-
+  const [loading, setLoading] = useState(null);
   const userContext = useUserContext();
   const handleReject = (id, type) => {
     axios
@@ -52,24 +54,29 @@ const Admin = () => {
       .catch((error) => setError(error.response.data.message));
   };
   const getBillboards = () => {
+    
     axios
       .post("http://localhost:8000/admin/requests", {}, config)
       .then((response) => {
         console.log(response.data);
         setBillboards(response.data.billboards);
         setCampaigns(response.data.campaigns);
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error.response.data.message);
+        setLoading(false);
       });
   };
   useEffect(() => {
+    setLoading(true);
     getBillboards();
     console.log(userContext.role);
   }, []);
 
   return (
     <>
+      {loading && <LoadingSpinner asOverlay />}
       <Header className="billboard_navbar mb-0 py-2"></Header>
 
       <Row className=" px-2 mt-3 mx-0 h-100  justify-content-start text-center">

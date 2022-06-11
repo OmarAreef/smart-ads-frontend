@@ -30,6 +30,7 @@ const config = {
 
 const SignupForm = (props) => {
   const navigate = useNavigate();
+  const userContext = useUserContext();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isAgency, setIsAgency] = useState(false);
@@ -55,12 +56,13 @@ const SignupForm = (props) => {
               .email("Invalid email address")
               .required("Required"),
           })}
-          onSubmit={(values, { setSubmitting }) => {
+          onSubmit={async (values, { setSubmitting }) => {
             setLoading(true);
-            axios
+            await axios
               .post("http://localhost:8000/user/register", values, config)
               .then((response) => {
-                navigate("/billboards");
+                props.closeModal();
+                userContext.login();
               })
               .catch((error) => {
                 setError(error.response.data.message);
@@ -154,6 +156,7 @@ const SignupForm = (props) => {
               .post("http://localhost:8000/agency/register", values, config)
               .then((response) => {
                 navigate("/billboards");
+                props.closeModal();
               })
               .catch((error) => {
                 setError(error.response.data.message);
@@ -267,22 +270,28 @@ const LoginForm = (props) => {
           username: "",
           password: "", // added for our select
         }}
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={async (values, { setSubmitting }) => {
           setLoading(true);
-          axios
+          await axios
             .post("http://localhost:8000/user/login", values, config)
             .then((response) => {
               setSuccess(response.data);
               setError(null);
-              userContext.login();
+
+              setTimeout(() => {
+                setSubmitting(false);
+                setLoading(false);
+                userContext.login();
+                props.closeModal();
+              }, 400);
             })
             .catch((error) => {
               setError(error.response.data.message);
+              setTimeout(() => {
+                setSubmitting(false);
+                setLoading(false);
+              }, 400);
             });
-          setTimeout(() => {
-            setSubmitting(false);
-            setLoading(false);
-          }, 400);
         }}
       >
         <Form>
@@ -391,6 +400,7 @@ const ImageForm = (props) => {
           setTimeout(() => {
             setLoading(false);
             userContext.addImage(values.file, props.type);
+            userContext.setNext(true)
           }, 500);
         }}
         validationSchema={Yup.object().shape({
@@ -413,7 +423,7 @@ const ImageForm = (props) => {
                     id="file"
                     name="file"
                     type="file"
-                    onChange={(event) => {
+                    onChange={async (event) => {
                       if (!event.target.files[0]) {
                         return;
                       }
@@ -427,29 +437,7 @@ const ImageForm = (props) => {
                       const file = event.target.files[0];
                       formData.append("file", file);
                       userContext.addImage(file, props.type);
-                      if (props.type === "campaign") {
-                        axios
-                          .post(
-                            "http://localhost:8000/display/image",
-                            formData,
-                            {
-                              withCredentials: true,
-                            }
-                          )
-                          .then((response) => {
-                            console.log(response.data);
-                            setResponseResult(response.data);
-                            setLoading(false);
-                          })
-                          .catch((error) => {
-                            setError(
-                              "an error has occured please try again later"
-                            );
-                            setLoading(false);
-                            console.log(error);
-                          });
-                        return;
-                      }
+                      setLoading(false);
                     }}
                     className="text-input"
                   />
@@ -996,15 +984,14 @@ const CampaignForm = () => {
                     schema.min(startDate, "Must be after selected start date")
                 ),
               startTime: Yup.number()
-                .required("Required")
-                .min(0, "Must be greater than zero")
+                .min(0, "Must be a postive number or zero")
                 .max(23, "Must be less than 23"),
               endTime: Yup.number()
                 .required("Required")
                 .when(
                   "startTime",
                   (startTime, schema) =>
-                    startTime &&
+                    (startTime || startTime === 0) &&
                     schema.min(
                       startTime,
                       "Must be after the desired start time"
@@ -1131,11 +1118,15 @@ const ChoosingBillboard = () => {
       campaignData.city = null;
       campaignData.state = null;
       campaignData.country = null;
+   
       userContext.addCampaign(campaignData);
+      userContext.setGlobalFormError(null)
     }
     if (chosenType === "area") {
       campaignData.billboards = [];
+     
       userContext.addCampaign(campaignData);
+      userContext.setGlobalFormError(null)
     }
 
     userContext.addPrice("please choose area or billboard to get price");

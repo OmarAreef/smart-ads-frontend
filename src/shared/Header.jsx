@@ -52,14 +52,14 @@ const Header = (props) => {
           handleClose={handleCloseLogin}
           title={"Login"}
         >
-          <LoginForm></LoginForm>
+          <LoginForm closeModal={handleCloseLogin}></LoginForm>
         </MyModal>
         <MyModal
           show={showSign}
           handleClose={handleCloseSign}
           title={"Sign up"}
         >
-          <SignupForm></SignupForm>
+          <SignupForm closeModal={handleCloseLogin}></SignupForm>
         </MyModal>
         <MyModal
           show={showBillboard}
@@ -67,10 +67,10 @@ const Header = (props) => {
           title={"New Billboard"}
           size="lg"
         >
-          {!userContext.billboardImage && (
+          {(!userContext.billboardImage || !userContext.next) && (
             <ImageForm type="billboard"></ImageForm>
           )}
-          {userContext.billboardImage && <BillboardForm />}
+          {userContext.billboardImage && userContext.next && <BillboardForm />}
         </MyModal>
         <MyModal
           show={showCampaign}
@@ -108,7 +108,7 @@ const Header = (props) => {
           <Row className="bg-dark mt-auto py-2 mb-1 px-0  w-100 align-self-center align-items-center modal-header ">
             <Col className="offset-1" xs={7}>
               <h1 className="display-5 my-0">
-                Total checkout payment : {userContext.price}{" "}$
+                Total checkout payment : {userContext.price} $
               </h1>
             </Col>
             <Col xs={2} className="offset-2">
