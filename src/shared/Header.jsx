@@ -65,7 +65,7 @@ const Header = (props) => {
           show={showBillboard}
           handleClose={() => setShowBillboard(false)}
           title={"New Billboard"}
-          size="lg"
+          className="billboard-modal"
         >
           {(!userContext.billboardImage || !userContext.next) && (
             <ImageForm type="billboard"></ImageForm>
